@@ -7,6 +7,11 @@
 /* Enable class-based dark mode (JS toggles 'dark' on <html>) */
 @variant dark (&:where(.dark, .dark *));
 
+/* Custom font utility — use `font-jetbrains` class instead of inline style */
+@theme {
+  --font-jetbrains: 'JetBrains Mono', monospace;
+}
+
 /* Gradient animation for the hero name */
 @keyframes gradient-shift {
   0%, 100% { background-position: 0% 50%; }

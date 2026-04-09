@@ -61,8 +61,7 @@ export function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
         {project.tags.map(tag => (
           <span
             key={tag}
-            className="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-600"
-            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+            className="font-jetbrains text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-600"
           >
             {tag}
           </span>

@@ -33,7 +33,7 @@ export function About({ t }: AboutProps) {
             {t.about.title}
           </p>
           <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-6">
-            Bridging Dev &amp; Business
+            {t.about.heading}
           </h2>
           <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-base">
             {t.about.body}

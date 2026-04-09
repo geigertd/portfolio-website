@@ -17,6 +17,7 @@ export interface Translation {
   }
   about: {
     title: string
+    heading: string
     body: string
   }
   projects: {

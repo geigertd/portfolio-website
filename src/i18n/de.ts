@@ -16,6 +16,7 @@ export const de: Translation = {
   },
   about: {
     title: 'Über mich',
+    heading: 'Brücke zwischen Dev & Business',
     body: 'Ich bin ein Informatikstudent im 4. Semester in Deutschland mit dem Ziel, die Brücke zwischen Entwicklungsteams und Geschäftsbereichen zu schlagen — durch technisches Verständnis, starke Kommunikation und Projektmanagement-Kompetenz.',
   },
   projects: {

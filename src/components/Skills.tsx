@@ -22,8 +22,7 @@ function SkillGroup({ title, items }: { title: string; items: string[] }) {
         {items.map(skill => (
           <span
             key={skill}
-            className="text-sm px-3 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:scale-105 transition-all cursor-default"
-            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+            className="font-jetbrains text-sm px-3 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-default"
           >
             {skill}
           </span>

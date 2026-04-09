@@ -16,6 +16,7 @@ export const en: Translation = {
   },
   about: {
     title: 'About Me',
+    heading: 'Bridging Dev & Business',
     body: "I'm a 2nd-year Computer Science student based in Germany, with a passion for understanding how software systems are built and managed. My goal is to bridge the gap between development teams and business stakeholders — combining technical literacy with strong communication and project management skills.",
   },
   projects: {
