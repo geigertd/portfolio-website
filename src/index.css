@@ -1,8 +1,11 @@
+/* Google Fonts must come before all other imports */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap');
+
 /* Tailwind v4 — single import replaces the old @tailwind directives */
 @import "tailwindcss";
 
-/* Inter + JetBrains Mono from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap');
+/* Enable class-based dark mode (JS toggles 'dark' on <html>) */
+@variant dark (&:where(.dark, .dark *));
 
 /* Base styles — applied globally */
 @layer base {
