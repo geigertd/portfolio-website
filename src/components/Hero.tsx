@@ -6,7 +6,8 @@ interface HeroProps {
 }
 
 export function Hero({ t }: HeroProps) {
-  const [imgError, setImgError] = useState(false)
+  const [profileImgError, setProfileImgError] = useState(false)
+  const [aiImgError, setAiImgError] = useState(false)
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-6 pt-20">
@@ -76,30 +77,45 @@ export function Hero({ t }: HeroProps) {
                   className="relative w-full h-full transition-transform duration-700 group-hover:[transform:rotateY(180deg)]"
                   style={{ transformStyle: 'preserve-3d' }}
                 >
+                  {/* Front face: real profile photo */}
                   <div
-                    className="absolute inset-0 rounded-full bg-emerald-600 dark:bg-emerald-700 flex items-center justify-center"
+                    className="absolute inset-0 rounded-full overflow-hidden"
                     style={{ backfaceVisibility: 'hidden' }}
                   >
-                    <span className="text-7xl font-bold text-white tracking-tight select-none">DG</span>
+                    {profileImgError ? (
+                      // Fallback to initials if the image fails to load
+                      <div className="w-full h-full rounded-full bg-emerald-600 dark:bg-emerald-700 flex items-center justify-center">
+                        <span className="text-7xl font-bold text-white tracking-tight select-none">DG</span>
+                      </div>
+                    ) : (
+                      <img
+                        src="/profile_pic.jpeg"
+                        alt="Daniel Geigert"
+                        className="w-full h-full object-cover"
+                        onError={() => setProfileImgError(true)}
+                      />
+                    )}
                   </div>
 
+                  {/* Back face (hover): AI-generated photo — to be added */}
                   <div
                     className="absolute inset-0 rounded-full overflow-hidden"
                     style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                   >
-                    {imgError ? (
+                    {aiImgError ? (
                       <div className="w-full h-full rounded-full bg-emerald-800 dark:bg-emerald-900 flex flex-col items-center justify-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-300">
                           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                         </svg>
-                        <span className="text-emerald-300 text-xs">Add photo</span>
+                        <span className="text-emerald-300 text-xs">AI photo coming soon</span>
                       </div>
                     ) : (
                       <img
-                        src="/profile-ai.jpg"
-                        alt="Daniel Geigert"
+                        src="/profile-ai.png"
+                        alt="Daniel Geigert — AI version"
                         className="w-full h-full object-cover"
-                        onError={() => setImgError(true)}
+                        style={{ objectPosition: 'center -15px' }}
+                        onError={() => setAiImgError(true)}
                       />
                     )}
                   </div>
