@@ -18,6 +18,16 @@ export const de: Translation = {
     title: 'Über mich',
     heading: 'Brücke zwischen Dev & Business',
     body: 'Ich bin ein Informatikstudent im 4. Semester in Deutschland mit dem Ziel, die Brücke zwischen Entwicklungsteams und Geschäftsbereichen zu schlagen — durch technisches Verständnis, starke Kommunikation und Projektmanagement-Kompetenz.',
+    stats: {
+      year_value: '4. Semester',
+      year_label: 'Student',
+      based_value: 'Deutschland',
+      based_label: 'Standort',
+      work_value: 'Offen für',
+      work_label: 'Praktika',
+      lang_value: 'DE / EN',
+      lang_label: 'Sprachen',
+    },
   },
   projects: {
     title: 'Projekte',

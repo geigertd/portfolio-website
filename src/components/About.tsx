@@ -1,3 +1,4 @@
+import { CalendarDays, MapPin, Briefcase, Languages } from 'lucide-react'
 import { useScrollFade } from '../hooks/useScrollFade'
 import type { Translation } from '../types/i18n'
 
@@ -39,21 +40,50 @@ export function About({ t }: AboutProps) {
             {t.about.body}
           </p>
 
-          {/* Quick-stat row */}
-          <div className="mt-8 flex gap-8">
-            <div>
-              <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">2nd</p>
-              <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">Year</p>
+          {/* Quick-stat grid — 2×2 so 4 cards fit without crowding */}
+          <div className="mt-8 grid grid-cols-2 gap-3">
+            {/* Stat card: Year */}
+            <div className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-xl px-4 py-3 shadow-sm border border-slate-100 dark:border-slate-700">
+              <div className="bg-emerald-100 dark:bg-emerald-900/40 p-2 rounded-lg">
+                <CalendarDays className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{t.about.stats.year_value}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-500">{t.about.stats.year_label}</p>
+              </div>
             </div>
-            <div className="w-px bg-slate-200 dark:bg-slate-700" />
-            <div>
-              <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">DE</p>
-              <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">Based</p>
+
+            {/* Stat card: Based */}
+            <div className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-xl px-4 py-3 shadow-sm border border-slate-100 dark:border-slate-700">
+              <div className="bg-emerald-100 dark:bg-emerald-900/40 p-2 rounded-lg">
+                <MapPin className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{t.about.stats.based_value}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-500">{t.about.stats.based_label}</p>
+              </div>
             </div>
-            <div className="w-px bg-slate-200 dark:bg-slate-700" />
-            <div>
-              <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400"></p>
-              <p className="text-xs text-slate-500 dark:text-slate-500 mt-1"></p>
+
+            {/* Stat card: Open for Internships */}
+            <div className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-xl px-4 py-3 shadow-sm border border-slate-100 dark:border-slate-700">
+              <div className="bg-emerald-100 dark:bg-emerald-900/40 p-2 rounded-lg">
+                <Briefcase className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{t.about.stats.work_value}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-500">{t.about.stats.work_label}</p>
+              </div>
+            </div>
+
+            {/* Stat card: Languages */}
+            <div className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-xl px-4 py-3 shadow-sm border border-slate-100 dark:border-slate-700">
+              <div className="bg-emerald-100 dark:bg-emerald-900/40 p-2 rounded-lg">
+                <Languages className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{t.about.stats.lang_value}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-500">{t.about.stats.lang_label}</p>
+              </div>
             </div>
           </div>
         </div>

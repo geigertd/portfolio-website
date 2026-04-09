@@ -19,6 +19,16 @@ export interface Translation {
     title: string
     heading: string
     body: string
+    stats: {
+      year_value: string   // e.g. "2nd Year"
+      year_label: string   // e.g. "Student"
+      based_value: string  // e.g. "Germany"
+      based_label: string  // e.g. "Based"
+      work_value: string   // e.g. "Open for"
+      work_label: string   // e.g. "Internships"
+      lang_value: string   // e.g. "DE / EN"
+      lang_label: string   // e.g. "Languages"
+    }
   }
   projects: {
     title: string
