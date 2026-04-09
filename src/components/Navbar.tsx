@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import type { Translation } from '../types/i18n'
 
 interface NavbarProps {
@@ -11,10 +11,13 @@ interface NavbarProps {
 
 export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false)
-
-  // Tracks the sliding green bubble's position and size inside the desktop nav
   const [bubble, setBubble] = useState({ left: 0, width: 0, visible: false })
+
+  // Ref to the <ul> container — used to compute bubble's relative position
   const navListRef = useRef<HTMLUListElement>(null)
+
+  // Map of href → <a> element — so we can measure any link on demand (e.g. on scroll)
+  const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map())
 
   const navLinks = [
     { label: t.nav.about, href: '#about' },
@@ -23,12 +26,11 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
     { label: t.nav.contact, href: '#contact' },
   ]
 
-  // Measures the clicked link's position relative to the <ul> container
-  // and moves the bubble there
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const link = e.currentTarget
+  // Moves the bubble to whichever link corresponds to the given href
+  const moveBubbleTo = (href: string) => {
+    const link = linkRefs.current.get(href)
     const nav = navListRef.current
-    if (!nav) return
+    if (!link || !nav) return
     const navRect = nav.getBoundingClientRect()
     const linkRect = link.getBoundingClientRect()
     setBubble({
@@ -37,6 +39,37 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
       visible: true,
     })
   }
+
+  const handleNavClick = (_e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    moveBubbleTo(href)
+  }
+
+  // IntersectionObserver — watches each section and moves the bubble when a
+  // section crosses the midpoint of the viewport (rootMargin "-50% 0px -50% 0px"
+  // creates an invisible horizontal line at the center; whichever section crosses
+  // it becomes "active").
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            moveBubbleTo(`#${entry.target.id}`)
+          }
+        })
+      },
+      { rootMargin: '-45% 0px -45% 0px' }
+    )
+
+    // Observe each section by its id
+    const sectionIds = ['about', 'projects', 'skills', 'contact']
+    sectionIds.forEach(id => {
+      const section = document.getElementById(id)
+      if (section) observer.observe(section)
+    })
+
+    return () => observer.disconnect()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // stable refs and setState — safe with empty deps
 
   return (
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
@@ -53,6 +86,7 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
           {/* Logo / Name */}
           <a
             href="#"
+            onClick={() => setBubble(b => ({ ...b, visible: false }))}
             className="shrink-0 text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors px-2"
           >
             DG
@@ -61,14 +95,13 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
           {/* Desktop nav links with sliding bubble */}
           <ul ref={navListRef} className="hidden md:flex items-center gap-1 relative">
 
-            {/* The sliding green bubble — absolutely positioned inside the <ul> */}
+            {/* The sliding green bubble */}
             <div
               className="absolute top-1/2 -translate-y-1/2 h-8 rounded-full bg-emerald-500/20 dark:bg-emerald-400/15 pointer-events-none"
               style={{
                 left: bubble.left,
                 width: bubble.width,
                 opacity: bubble.visible ? 1 : 0,
-                // CSS transition drives the smooth slide — can't use Tailwind for dynamic pixel values
                 transition: 'left 300ms ease, width 250ms ease, opacity 200ms ease',
               }}
             />
@@ -77,7 +110,12 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={handleNavClick}
+                  // Store the element in linkRefs so scroll handler can measure it
+                  ref={el => {
+                    if (el) linkRefs.current.set(link.href, el)
+                    else linkRefs.current.delete(link.href)
+                  }}
+                  onClick={e => handleNavClick(e, link.href)}
                   className="
                     relative inline-block rounded-full px-4 py-1.5
                     text-sm font-medium
@@ -95,7 +133,6 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
           {/* Right-side controls */}
           <div className="flex items-center gap-1.5 shrink-0">
 
-            {/* Language toggle — pill */}
             <button
               onClick={onToggleLang}
               aria-label="Toggle language"
@@ -110,7 +147,6 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
               {lang === 'en' ? 'DE' : 'EN'}
             </button>
 
-            {/* Dark mode toggle — circular pill */}
             <button
               onClick={onToggleDark}
               aria-label="Toggle dark mode"
@@ -133,7 +169,6 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
               )}
             </button>
 
-            {/* Mobile hamburger — circular pill */}
             <button
               onClick={() => setMenuOpen(prev => !prev)}
               aria-label="Toggle menu"
@@ -157,7 +192,7 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
           </div>
         </nav>
 
-        {/* Mobile dropdown — rounded card floats below the pill */}
+        {/* Mobile dropdown */}
         {menuOpen && (
           <div className="
             absolute top-[3.5rem] left-0 right-0
