@@ -21,10 +21,12 @@ export const de: Translation = {
   },
   projects: {
     title: 'Projekte',
+    heading: 'Was ich gebaut habe',
     placeholder_desc: 'Projekt in Kürze verfügbar. Bleib gespannt.',
   },
   skills: {
     title: 'Fähigkeiten',
+    heading: 'Mein Werkzeugkasten',
     categories: {
       languages: 'Sprachen',
       frameworks: 'Frameworks & Bibliotheken',
@@ -33,6 +35,7 @@ export const de: Translation = {
   },
   contact: {
     title: 'Lass uns verbinden',
+    heading: 'Kontakt aufnehmen',
     subtitle: 'Schreib mir gerne per E-Mail oder finde mich auf den Plattformen unten.',
   },
   footer: {

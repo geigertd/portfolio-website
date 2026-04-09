@@ -22,10 +22,12 @@ export interface Translation {
   }
   projects: {
     title: string
+    heading: string
     placeholder_desc: string // shown on placeholder cards
   }
   skills: {
     title: string
+    heading: string
     categories: {
       languages: string
       frameworks: string
@@ -34,6 +36,7 @@ export interface Translation {
   }
   contact: {
     title: string
+    heading: string
     subtitle: string
   }
   footer: {

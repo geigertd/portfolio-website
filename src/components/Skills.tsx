@@ -46,7 +46,7 @@ export function Skills({ t, skills }: SkillsProps) {
           {t.skills.title}
         </p>
         <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-12">
-          My Toolbox
+          {t.skills.heading}
         </h2>
 
         <div className="flex flex-col gap-10">

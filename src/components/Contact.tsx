@@ -19,7 +19,7 @@ export function Contact({ t }: ContactProps) {
           {t.contact.title}
         </p>
         <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-4">
-          Get in Touch
+          {t.contact.heading}
         </h2>
         <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-12">
           {t.contact.subtitle}

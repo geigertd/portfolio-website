@@ -21,10 +21,12 @@ export const en: Translation = {
   },
   projects: {
     title: 'Projects',
+    heading: "Things I've Built",
     placeholder_desc: 'Project coming soon. Stay tuned.',
   },
   skills: {
     title: 'Skills',
+    heading: 'My Toolbox',
     categories: {
       languages: 'Languages',
       frameworks: 'Frameworks & Libraries',
@@ -33,6 +35,7 @@ export const en: Translation = {
   },
   contact: {
     title: "Let's Connect",
+    heading: 'Get in Touch',
     subtitle: 'Feel free to reach out via email or find me on the platforms below.',
   },
   footer: {

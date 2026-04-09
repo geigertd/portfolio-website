@@ -22,7 +22,7 @@ export function Projects({ t, projects }: ProjectsProps) {
           {t.projects.title}
         </p>
         <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-12">
-          Things I've Built
+          {t.projects.heading}
         </h2>
 
         <div className="grid sm:grid-cols-2 gap-6">
