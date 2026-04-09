@@ -12,18 +12,18 @@ export function About({ t }: AboutProps) {
         {/* Left: decorative initials avatar */}
         <div className="flex justify-center md:justify-start">
           <div className="relative w-48 h-48">
-            {/* Offset background square */}
-            <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-indigo-100 dark:bg-indigo-900/40" />
-            {/* Main avatar square */}
-            <div className="relative w-full h-full rounded-2xl bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center">
-              <span className="text-5xl font-bold text-white tracking-tight select-none">TG</span>
+            {/* Offset shadow square */}
+            <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40" />
+            {/* Main avatar */}
+            <div className="relative w-full h-full rounded-2xl bg-emerald-600 dark:bg-emerald-700 flex items-center justify-center">
+              <span className="text-5xl font-bold text-white tracking-tight select-none">DG</span>
             </div>
           </div>
         </div>
 
         {/* Right: about text */}
         <div>
-          <p className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-3">
+          <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
             {t.about.title}
           </p>
           <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mb-6">
@@ -36,18 +36,18 @@ export function About({ t }: AboutProps) {
           {/* Quick-stat row */}
           <div className="mt-8 flex gap-8">
             <div>
-              <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">3rd</p>
-              <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">Semester</p>
+              <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">2nd</p>
+              <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">Year</p>
             </div>
             <div className="w-px bg-slate-200 dark:bg-slate-700" />
             <div>
-              <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">DE</p>
+              <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">DE</p>
               <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">Based</p>
             </div>
             <div className="w-px bg-slate-200 dark:bg-slate-700" />
             <div>
-              <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">PM</p>
-              <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">Goal</p>
+              <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400"></p>
+              <p className="text-xs text-slate-500 dark:text-slate-500 mt-1"></p>
             </div>
           </div>
         </div>

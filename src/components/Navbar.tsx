@@ -37,7 +37,7 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
           {/* Logo / Name */}
           <a
             href="#"
-            className="shrink-0 text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors px-2"
+            className="shrink-0 text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors px-2"
           >
             DG
           </a>
@@ -53,7 +53,7 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
                     text-sm font-medium
                     text-slate-600 dark:text-slate-400
                     hover:bg-slate-100 dark:hover:bg-slate-800
-                    hover:text-indigo-600 dark:hover:text-indigo-400
+                    hover:text-emerald-600 dark:hover:text-emerald-400
                     transition-colors
                   "
                 >
@@ -74,7 +74,7 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
                 rounded-full px-3 py-1 text-xs font-semibold
                 border border-slate-200 dark:border-slate-700
                 text-slate-600 dark:text-slate-400
-                hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400
+                hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-400
                 transition-colors
               "
             >
@@ -89,7 +89,7 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
                 w-8 h-8 flex items-center justify-center rounded-full
                 text-slate-500 dark:text-slate-400
                 hover:bg-slate-100 dark:hover:bg-slate-800
-                hover:text-indigo-600 dark:hover:text-indigo-400
+                hover:text-emerald-600 dark:hover:text-emerald-400
                 transition-colors
               "
             >
@@ -149,7 +149,7 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
                       text-sm font-medium
                       text-slate-600 dark:text-slate-400
                       hover:bg-slate-100 dark:hover:bg-slate-800
-                      hover:text-indigo-600 dark:hover:text-indigo-400
+                      hover:text-emerald-600 dark:hover:text-emerald-400
                       transition-colors
                     "
                   >
