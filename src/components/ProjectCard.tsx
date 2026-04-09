@@ -3,10 +3,14 @@ import type { Project } from '../types/project'
 
 interface ProjectCardProps {
   project: Project
+  lang: string
   delay?: number
 }
 
-export function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
+export function ProjectCard({ project, lang, delay = 0 }: ProjectCardProps) {
+  const description = lang === 'de' && project.descriptionDe
+    ? project.descriptionDe
+    : project.description
   const { ref, visible } = useScrollFade()
 
   return (
@@ -53,7 +57,7 @@ export function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
 
       {/* Description */}
       <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed flex-1 mb-5">
-        {project.description}
+        {description}
       </p>
 
       {/* Tech tags — pill shaped, JetBrains Mono */}

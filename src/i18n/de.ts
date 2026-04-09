@@ -44,7 +44,7 @@ export const de: Translation = {
     },
   },
   contact: {
-    title: 'Lass uns verbinden',
+    title: 'Lass uns näher kennenlernen',
     heading: 'Kontakt aufnehmen',
     subtitle: 'Schreib mir gerne per E-Mail oder finde mich auf den Plattformen unten.',
   },

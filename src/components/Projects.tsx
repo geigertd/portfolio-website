@@ -6,9 +6,10 @@ import { ProjectCard } from './ProjectCard'
 interface ProjectsProps {
   t: Translation
   projects: Project[]
+  lang: string
 }
 
-export function Projects({ t, projects }: ProjectsProps) {
+export function Projects({ t, projects, lang }: ProjectsProps) {
   const { ref, visible } = useScrollFade()
 
   return (
@@ -27,7 +28,7 @@ export function Projects({ t, projects }: ProjectsProps) {
 
         <div className="grid sm:grid-cols-2 gap-6">
           {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} delay={i * 100} />
+            <ProjectCard key={project.id} project={project} lang={lang} delay={i * 100} />
           ))}
         </div>
       </div>

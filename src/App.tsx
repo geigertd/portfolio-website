@@ -30,7 +30,7 @@ function App() {
       <main>
         <Hero t={t} />
         <About t={t} />
-        <Projects t={t} projects={projects} />
+        <Projects t={t} projects={projects} lang={lang} />
         <Skills t={t} skills={skills} />
         <Contact t={t} />
       </main>

@@ -1,13 +1,13 @@
 import type { Project } from '../types/project'
 
-// Placeholder projects — replace with real ones as you build them
 export const projects: Project[] = [
   {
-    id: 'project-1',
-    title: 'Claukie Talkie',
-    description: 'A minimalist personal portfolio built with React, TypeScript and Tailwind CSS. Features dark mode and EN/DE language toggle.',
-    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
-    githubUrl: 'https://github.com/geigertd',
+    id: 'claukie-talkie',
+    title: 'ClaukieTalkie',
+    description: 'Hands-free LAN walkie-talkie for your PC terminal. Your phone connects via WebSocket to a FastAPI server on your machine — all open terminals are wrapped in tmux and mirrored live to the phone. Tap to select a session, speak to run commands, or press volume keys to cycle sessions and trigger TTS readback of the last output.',
+    descriptionDe: 'Freihändiges LAN-Walkie-Talkie für den PC-Terminal. Das Smartphone verbindet sich per WebSocket mit einem FastAPI-Server auf dem PC — alle offenen Terminals werden in tmux-Sitzungen gebündelt und live auf das Handy gespiegelt. Antippen zum Auswählen, sprechen zum Ausführen von Befehlen oder Lautstärketasten zum Wechseln zwischen Sitzungen und TTS-Vorlesen der letzten Ausgabe.',
+    tags: ['Python', 'FastAPI', 'React', 'TypeScript', 'WebSocket', 'PWA'],
+    githubUrl: 'https://github.com/geigertd/ClaukieTalkie',
   },
   {
     id: 'project-2',

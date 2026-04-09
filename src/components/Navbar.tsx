@@ -129,9 +129,13 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
           <a
             href="#"
             onClick={() => setBubble(b => ({ ...b, visible: false }))}
-            className="shrink-0 text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors px-2"
+            className="shrink-0 hover:opacity-90 hover:scale-105 transition-[opacity,transform] duration-200 px-1"
+            aria-label="Home"
           >
-            DG
+            {/* Miniature version of the hero flip-card front — same DG-on-emerald language */}
+            <span className="flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-sm shadow-emerald-500/25">
+              <span className="text-white text-xs font-black tracking-tight select-none">DG</span>
+            </span>
           </a>
 
           {/* Desktop nav links with sliding bubble */}
