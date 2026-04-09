@@ -19,6 +19,12 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
   // Map of href → <a> element — so we can measure any link on demand (e.g. on scroll)
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map())
 
+  // When a nav link is clicked we programmatically scroll the page. During that
+  // scroll the IntersectionObserver fires for sections it passes through, which
+  // would incorrectly move the bubble away from the clicked link. This flag
+  // suppresses observer updates for ~800ms after a click (covers scroll duration).
+  const scrollingFromClick = useRef(false)
+
   const navLinks = [
     { label: t.nav.about, href: '#about' },
     { label: t.nav.projects, href: '#projects' },
@@ -42,6 +48,8 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
 
   const handleNavClick = (_e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     moveBubbleTo(href)
+    scrollingFromClick.current = true
+    setTimeout(() => { scrollingFromClick.current = false }, 800)
   }
 
   // IntersectionObserver — watches each section and moves the bubble when a
@@ -52,7 +60,7 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !scrollingFromClick.current) {
             moveBubbleTo(`#${entry.target.id}`)
           }
         })
