@@ -1,12 +1,13 @@
 import type { Translation } from '../types/i18n'
 
+// This uses
 interface HeroProps {
   t: Translation
 }
 
 export function Hero({ t }: HeroProps) {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-6 pt-16">
+    <section className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-6 pt-20">
       <div className="max-w-5xl w-full mx-auto py-24 md:py-32">
 
         {/* Subtle top label */}
@@ -16,7 +17,7 @@ export function Hero({ t }: HeroProps) {
 
         {/* Name — largest element on the page */}
         <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-slate-100 tracking-tight leading-none mb-6">
-          Tobias Geiger
+          Daniel Geigert
         </h1>
 
         {/* Role — secondary heading */}
