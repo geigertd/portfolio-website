@@ -4,7 +4,7 @@ import type { Project } from '../types/project'
 export const projects: Project[] = [
   {
     id: 'project-1',
-    title: 'Portfolio Website',
+    title: 'Claukie Talkie',
     description: 'A minimalist personal portfolio built with React, TypeScript and Tailwind CSS. Features dark mode and EN/DE language toggle.',
     tags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
     githubUrl: 'https://github.com/geigertd',
