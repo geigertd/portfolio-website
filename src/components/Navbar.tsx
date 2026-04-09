@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import type { Translation } from '../types/i18n'
 
 interface NavbarProps {
@@ -12,6 +12,10 @@ interface NavbarProps {
 export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false)
 
+  // Tracks the sliding green bubble's position and size inside the desktop nav
+  const [bubble, setBubble] = useState({ left: 0, width: 0, visible: false })
+  const navListRef = useRef<HTMLUListElement>(null)
+
   const navLinks = [
     { label: t.nav.about, href: '#about' },
     { label: t.nav.projects, href: '#projects' },
@@ -19,11 +23,23 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
     { label: t.nav.contact, href: '#contact' },
   ]
 
-  return (
-    // Outer header: fixed, floats 16px from the top, centers the pill
-    <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
+  // Measures the clicked link's position relative to the <ul> container
+  // and moves the bubble there
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const link = e.currentTarget
+    const nav = navListRef.current
+    if (!nav) return
+    const navRect = nav.getBoundingClientRect()
+    const linkRect = link.getBoundingClientRect()
+    setBubble({
+      left: linkRect.left - navRect.left,
+      width: linkRect.width,
+      visible: true,
+    })
+  }
 
-      {/* The pill itself — this is the visible navbar bubble */}
+  return (
+    <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
       <div className="relative w-full max-w-2xl">
         <nav className="
           flex items-center justify-between gap-2 px-3 h-12
@@ -42,17 +58,30 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
             DG
           </a>
 
-          {/* Desktop nav links — pill buttons */}
-          <ul className="hidden md:flex items-center gap-1">
+          {/* Desktop nav links with sliding bubble */}
+          <ul ref={navListRef} className="hidden md:flex items-center gap-1 relative">
+
+            {/* The sliding green bubble — absolutely positioned inside the <ul> */}
+            <div
+              className="absolute top-1/2 -translate-y-1/2 h-8 rounded-full bg-emerald-500/20 dark:bg-emerald-400/15 pointer-events-none"
+              style={{
+                left: bubble.left,
+                width: bubble.width,
+                opacity: bubble.visible ? 1 : 0,
+                // CSS transition drives the smooth slide — can't use Tailwind for dynamic pixel values
+                transition: 'left 300ms ease, width 250ms ease, opacity 200ms ease',
+              }}
+            />
+
             {navLinks.map(link => (
               <li key={link.href}>
                 <a
                   href={link.href}
+                  onClick={handleNavClick}
                   className="
-                    inline-block rounded-full px-4 py-1.5
+                    relative inline-block rounded-full px-4 py-1.5
                     text-sm font-medium
                     text-slate-600 dark:text-slate-400
-                    hover:bg-slate-100 dark:hover:bg-slate-800
                     hover:text-emerald-600 dark:hover:text-emerald-400
                     transition-colors
                   "
