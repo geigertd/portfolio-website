@@ -6,7 +6,6 @@ interface HeroProps {
 }
 
 export function Hero({ t }: HeroProps) {
-  const [flipped, setFlipped] = useState(false)
   const [imgError, setImgError] = useState(false)
 
   return (
@@ -68,18 +67,14 @@ export function Hero({ t }: HeroProps) {
 
               <div className="absolute inset-0 translate-x-4 translate-y-4 rounded-full bg-emerald-100 dark:bg-emerald-900/40" />
 
+              {/* group enables the hover-triggered flip on the inner card */}
               <div
-                className="relative w-full h-full cursor-pointer"
+                className="relative w-full h-full group"
                 style={{ perspective: '800px' }}
-                onClick={() => setFlipped(f => !f)}
-                title={flipped ? 'Click to flip back' : 'Click to reveal'}
               >
                 <div
-                  className="relative w-full h-full transition-transform duration-700"
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-                  }}
+                  className="relative w-full h-full transition-transform duration-700 group-hover:[transform:rotateY(180deg)]"
+                  style={{ transformStyle: 'preserve-3d' }}
                 >
                   <div
                     className="absolute inset-0 rounded-full bg-emerald-600 dark:bg-emerald-700 flex items-center justify-center"
