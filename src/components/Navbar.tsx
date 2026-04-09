@@ -12,12 +12,23 @@ interface NavbarProps {
 export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [bubble, setBubble] = useState({ left: 0, width: 0, visible: false })
+  // Tracks which href is currently "active" — used for aria-current
+  const [activeHref, setActiveHref] = useState<string | null>(null)
 
   // Ref to the <ul> container — used to compute bubble's relative position
   const navListRef = useRef<HTMLUListElement>(null)
 
   // Map of href → <a> element — so we can measure any link on demand (e.g. on scroll)
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map())
+
+  // Ref to the mobile dropdown — used for outside-click and Escape handling
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  // Ref to the hamburger button — excluded from outside-click check so toggling works
+  const hamburgerRef = useRef<HTMLButtonElement>(null)
+
+  // Ref to the first mobile link — receives focus when menu opens (keyboard accessibility)
+  const firstMobileLinkRef = useRef<HTMLAnchorElement>(null)
 
   // When a nav link is clicked we programmatically scroll the page. During that
   // scroll the IntersectionObserver fires for sections it passes through, which
@@ -39,6 +50,7 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
     if (!link || !nav) return
     const navRect = nav.getBoundingClientRect()
     const linkRect = link.getBoundingClientRect()
+    setActiveHref(href)
     setBubble({
       left: linkRect.left - navRect.left,
       width: linkRect.width,
@@ -78,6 +90,28 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
     return () => observer.disconnect()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []) // stable refs and setState — safe with empty deps
+
+  // Close menu when clicking outside of it (but not the hamburger button itself)
+  useEffect(() => {
+    if (!menuOpen) return
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (
+        menuRef.current && !menuRef.current.contains(e.target as Node) &&
+        hamburgerRef.current && !hamburgerRef.current.contains(e.target as Node)
+      ) {
+        setMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+    return () => document.removeEventListener('mousedown', handleOutsideClick)
+  }, [menuOpen])
+
+  // Move focus to the first menu link when the menu opens (keyboard accessibility)
+  useEffect(() => {
+    if (menuOpen) {
+      firstMobileLinkRef.current?.focus()
+    }
+  }, [menuOpen])
 
   return (
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
@@ -124,6 +158,8 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
                     else linkRefs.current.delete(link.href)
                   }}
                   onClick={e => handleNavClick(e, link.href)}
+                  // aria-current tells screen readers which section is active
+                  aria-current={activeHref === link.href ? 'true' : undefined}
                   className="
                     relative inline-block rounded-full px-4 py-1.5
                     text-sm font-medium
@@ -177,9 +213,13 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
               )}
             </button>
 
+            {/* Hamburger — aria-expanded and aria-controls wire it to the menu for screen readers */}
             <button
+              ref={hamburgerRef}
               onClick={() => setMenuOpen(prev => !prev)}
               aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
               className="
                 md:hidden w-8 h-8 flex items-center justify-center rounded-full
                 text-slate-500 dark:text-slate-400
@@ -200,21 +240,28 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
           </div>
         </nav>
 
-        {/* Mobile dropdown */}
+        {/* Mobile dropdown — Escape closes it, outside clicks close it, focus moves here on open */}
         {menuOpen && (
-          <div className="
-            absolute top-[3.5rem] left-0 right-0
-            rounded-2xl
-            bg-white dark:bg-slate-900
-            border border-slate-200 dark:border-slate-700
-            shadow-xl shadow-slate-200/50 dark:shadow-black/40
-            px-3 py-3
-          ">
+          <div
+            id="mobile-menu"
+            ref={menuRef}
+            onKeyDown={e => { if (e.key === 'Escape') setMenuOpen(false) }}
+            className="
+              absolute top-[3.5rem] left-0 right-0
+              rounded-2xl
+              bg-white dark:bg-slate-900
+              border border-slate-200 dark:border-slate-700
+              shadow-xl shadow-slate-200/50 dark:shadow-black/40
+              px-3 py-3
+            "
+          >
             <ul className="flex flex-col gap-1">
-              {navLinks.map(link => (
+              {navLinks.map((link, i) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
+                    // First link receives focus when menu opens
+                    ref={i === 0 ? firstMobileLinkRef : undefined}
                     onClick={() => setMenuOpen(false)}
                     className="
                       block rounded-xl px-4 py-2.5

@@ -10,7 +10,7 @@ export const en: Translation = {
   hero: {
     greeting: "Hi, I'm",
     role: 'Computer Science Student',
-    tagline: 'Building towards a career in Software Engineering & IT-Consulting.',
+    tagline: 'CS student focused on bridging dev teams and business stakeholders — combining technical depth with project management thinking.',
     cta_projects: 'View Projects',
     cta_contact: 'Contact Me',
   },
