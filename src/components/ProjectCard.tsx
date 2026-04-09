@@ -1,12 +1,22 @@
+import { useScrollFade } from '../hooks/useScrollFade'
 import type { Project } from '../types/project'
 
 interface ProjectCardProps {
   project: Project
+  delay?: number
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
+  const { ref, visible } = useScrollFade()
+
   return (
-    <article className="flex flex-col bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-md transition-all group">
+    // Outer div handles scroll fade — keeps hover transitions on the article fast
+    <div
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`transition-[opacity,transform] duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+    >
+    <article className="flex flex-col bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-lg hover:shadow-emerald-500/10 dark:hover:shadow-emerald-400/5 transition-all group">
 
       {/* Title + GitHub link row */}
       <div className="flex items-start justify-between gap-4 mb-3">
@@ -59,5 +69,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
         ))}
       </div>
     </article>
+    </div>
   )
 }

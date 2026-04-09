@@ -7,6 +7,12 @@
 /* Enable class-based dark mode (JS toggles 'dark' on <html>) */
 @variant dark (&:where(.dark, .dark *));
 
+/* Gradient animation for the hero name */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
 /* Base styles — applied globally */
 @layer base {
   html {

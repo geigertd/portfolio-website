@@ -1,3 +1,4 @@
+import { useScrollFade } from '../hooks/useScrollFade'
 import type { Translation } from '../types/i18n'
 
 interface ContactProps {
@@ -5,9 +6,14 @@ interface ContactProps {
 }
 
 export function Contact({ t }: ContactProps) {
+  const { ref, visible } = useScrollFade()
+
   return (
     <section id="contact" className="bg-white dark:bg-slate-900 py-24 px-6">
-      <div className="max-w-5xl mx-auto text-center">
+      <div
+        ref={ref}
+        className={`max-w-5xl mx-auto text-center transition-[opacity,transform] duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+      >
 
         <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
           {t.contact.title}

@@ -9,13 +9,22 @@ export function Hero({ t }: HeroProps) {
     <section className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-6 pt-20">
       <div className="max-w-5xl w-full mx-auto py-24 md:py-32">
 
-        {/* Subtle top label */}
-        <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400 mb-4 tracking-wide uppercase">
-          {t.hero.greeting}
-        </p>
+        {/* Subtle top label with pulsing availability dot */}
+        <div className="flex items-center gap-2 mb-4">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
+          <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400 tracking-wide uppercase">
+            {t.hero.greeting}
+          </p>
+        </div>
 
-        {/* Name — largest element on the page */}
-        <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-slate-100 tracking-tight leading-none mb-6">
+        {/* Name — largest element, gradient animates slowly left-to-right */}
+        <h1
+          className="text-5xl md:text-7xl font-bold tracking-tight leading-none mb-6 bg-gradient-to-r from-slate-900 via-emerald-700 to-slate-800 dark:from-white dark:via-emerald-400 dark:to-slate-200 bg-clip-text text-transparent"
+          style={{ backgroundSize: '200% auto', animation: 'gradient-shift 6s ease infinite' }}
+        >
           Daniel Geigert
         </h1>
 

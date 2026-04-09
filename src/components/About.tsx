@@ -1,3 +1,4 @@
+import { useScrollFade } from '../hooks/useScrollFade'
 import type { Translation } from '../types/i18n'
 
 interface AboutProps {
@@ -5,9 +6,14 @@ interface AboutProps {
 }
 
 export function About({ t }: AboutProps) {
+  const { ref, visible } = useScrollFade()
+
   return (
     <section id="about" className="bg-slate-50 dark:bg-slate-800/50 py-24 px-6">
-      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div
+        ref={ref}
+        className={`max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center transition-[opacity,transform] duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+      >
 
         {/* Left: decorative initials avatar */}
         <div className="flex justify-center md:justify-start">

@@ -10,13 +10,13 @@ export const en: Translation = {
   hero: {
     greeting: "Hi, I'm",
     role: 'Computer Science Student',
-    tagline: 'Building towards a career in Project Management & Business Analysis.',
+    tagline: 'Building towards a career in Software Engineering & IT-Consulting.',
     cta_projects: 'View Projects',
     cta_contact: 'Contact Me',
   },
   about: {
     title: 'About Me',
-    body: "I'm a 3rd-semester Computer Science student based in Germany, with a passion for understanding how software systems are built and managed. My goal is to bridge the gap between development teams and business stakeholders — combining technical literacy with strong communication and project management skills.",
+    body: "I'm a 2nd-year Computer Science student based in Germany, with a passion for understanding how software systems are built and managed. My goal is to bridge the gap between development teams and business stakeholders — combining technical literacy with strong communication and project management skills.",
   },
   projects: {
     title: 'Projects',
