@@ -10,7 +10,7 @@ export function Hero({ t }: HeroProps) {
   const [aiImgError, setAiImgError] = useState(false)
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-6 pt-20">
+    <section id="hero" className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-6 pt-20">
       <div className="max-w-5xl w-full mx-auto py-24 md:py-32">
 
         {/* Two-column grid — scroll indicator excluded so avatar centers with the text block */}

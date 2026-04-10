@@ -79,7 +79,12 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting && !scrollingFromClick.current) {
+          if (!entry.isIntersecting || scrollingFromClick.current) return
+          if (entry.target.id === 'hero') {
+            // Hero has no nav link — hide the pill entirely
+            setActiveHref(null)
+            setBubble(b => ({ ...b, visible: false }))
+          } else {
             moveBubbleTo(`#${entry.target.id}`)
           }
         })
@@ -87,8 +92,8 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
       { rootMargin: '-45% 0px -45% 0px' }
     )
 
-    // Observe each section by its id
-    const sectionIds = ['about', 'projects', 'skills', 'contact']
+    // Observe hero + all nav sections
+    const sectionIds = ['hero', 'about', 'projects', 'skills', 'contact']
     sectionIds.forEach(id => {
       const section = document.getElementById(id)
       if (section) observer.observe(section)
