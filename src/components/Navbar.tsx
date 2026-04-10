@@ -64,6 +64,13 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
     setTimeout(() => { scrollingFromClick.current = false }, 800)
   }
 
+  // Re-measure the bubble after a language switch — translated labels have different
+  // widths, so the old pixel measurements are stale and need to be recalculated.
+  useEffect(() => {
+    if (activeHref) moveBubbleTo(activeHref)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]) // intentionally only on lang change; activeHref/refs are stable at this point
+
   // IntersectionObserver — watches each section and moves the bubble when a
   // section crosses the midpoint of the viewport (rootMargin "-50% 0px -50% 0px"
   // creates an invisible horizontal line at the center; whichever section crosses
