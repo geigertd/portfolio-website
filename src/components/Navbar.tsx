@@ -71,8 +71,27 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]) // intentionally only on lang change; activeHref/refs are stable at this point
 
+  // Hide the bubble when the user scrolls back into the hero zone.
+  // IntersectionObserver is unreliable here because the hero is always
+  // "partially visible" at the top — it never triggers a fresh intersection
+  // change when scrolling back up to it. A scroll listener on scrollY is simpler
+  // and more predictable: hide the pill once the user is in the upper half of
+  // the first viewport-height (i.e. clearly still in the hero).
+  useEffect(() => {
+    const threshold = window.innerHeight * 0.5
+    const onScroll = () => {
+      if (scrollingFromClick.current) return
+      if (window.scrollY < threshold) {
+        setActiveHref(null)
+        setBubble(b => ({ ...b, visible: false }))
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   // IntersectionObserver — watches each section and moves the bubble when a
-  // section crosses the midpoint of the viewport (rootMargin "-50% 0px -50% 0px"
+  // section crosses the midpoint of the viewport (rootMargin "-45% 0px -45% 0px"
   // creates an invisible horizontal line at the center; whichever section crosses
   // it becomes "active").
   useEffect(() => {
@@ -80,20 +99,13 @@ export function Navbar({ t, isDark, onToggleDark, lang, onToggleLang }: NavbarPr
       (entries) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting || scrollingFromClick.current) return
-          if (entry.target.id === 'hero') {
-            // Hero has no nav link — hide the pill entirely
-            setActiveHref(null)
-            setBubble(b => ({ ...b, visible: false }))
-          } else {
-            moveBubbleTo(`#${entry.target.id}`)
-          }
+          moveBubbleTo(`#${entry.target.id}`)
         })
       },
       { rootMargin: '-45% 0px -45% 0px' }
     )
 
-    // Observe hero + all nav sections
-    const sectionIds = ['hero', 'about', 'projects', 'skills', 'contact']
+    const sectionIds = ['about', 'projects', 'skills', 'contact']
     sectionIds.forEach(id => {
       const section = document.getElementById(id)
       if (section) observer.observe(section)
