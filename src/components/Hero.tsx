@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Translation } from '../types/i18n'
+import { AuroraBackground } from '@/components/ui/aurora-background'
 
 interface HeroProps {
   t: Translation
@@ -10,7 +11,10 @@ export function Hero({ t }: HeroProps) {
   const [aiImgError, setAiImgError] = useState(false)
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-6 pt-20">
+    <AuroraBackground
+      id="hero"
+      className="min-h-screen h-auto! bg-white dark:bg-slate-900 px-6 pt-20 items-start justify-start"
+    >
       <div className="max-w-5xl w-full mx-auto py-24 md:py-32">
 
         {/* Two-column grid — scroll indicator excluded so avatar centers with the text block */}
@@ -135,6 +139,6 @@ export function Hero({ t }: HeroProps) {
         </div>
 
       </div>
-    </section>
+    </AuroraBackground>
   )
 }

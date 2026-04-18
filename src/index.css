@@ -8,8 +8,28 @@
 @variant dark (&:where(.dark, .dark *));
 
 /* Custom font utility — use `font-jetbrains` class instead of inline style */
+/* Aurora animation registered as a Tailwind utility class */
 @theme {
   --font-jetbrains: 'JetBrains Mono', monospace;
+  --animate-aurora: aurora 60s linear infinite;
+}
+
+/* CSS color variables consumed by the aurora gradient — mapped to emerald palette */
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --transparent: transparent;
+  --blue-300: oklch(0.765 0.177 162.48);   /* emerald-300 */
+  --blue-400: oklch(0.696 0.17 162.48);    /* emerald-400 */
+  --blue-500: oklch(0.6 0.161 162.48);     /* emerald-500 */
+  --indigo-300: oklch(0.74 0.142 181.91);  /* teal-300 */
+  --violet-200: oklch(0.845 0.12 151.32);  /* green-200 */
+}
+
+/* Aurora sweep animation — background-position shift creates the moving bands */
+@keyframes aurora {
+  from { background-position: 50% 50%, 50% 50%; }
+  to { background-position: 350% 50%, 350% 50%; }
 }
 
 /* Gradient animation for the hero name */
